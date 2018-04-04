@@ -13,7 +13,7 @@ public class CreateScheduleController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		
 		//아이디
 		KCUserDTO dto = (KCUserDTO) session.getAttribute("dto");
@@ -47,7 +47,7 @@ public class CreateScheduleController implements Controller {
 		td.setEndDate(end);
 		td.setContent(description);
 		TodoListDAO.getInstance().createSchedule(td);
-		return "index.jsp";
+		return "redirect:index.jsp";
 	}
 
 }

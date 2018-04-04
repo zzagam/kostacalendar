@@ -84,11 +84,15 @@
 			url:"${pageContext.request.contextPath}/dispatcher",
 			data:$("#categoryForm").serialize(),
 			success:function(data){
-				$("#categoryNo1").html(data[0].category.categoryName+" "+data[0].count);
-				
-				$("#categoryNo2").html(data[1].category.categoryName+" "+data[1].count);
-				
-				$("#categoryNo3").html(data[2].category.categoryName+" "+data[2].count);		
+				for (var i=0 ; i<data.length ; i++){
+					if (data[i].category.categoryNo=="1"){
+						$("#categoryNo1").html(data[0].category.categoryName+" "+data[0].count);		
+					}else if (data[i].category.categoryNo=="2"){
+						$("#categoryNo2").html(data[1].category.categoryName+" "+data[1].count);		
+					}else if (data[i].category.categoryNo=="3"){
+						$("#categoryNo3").html(data[2].category.categoryName+" "+data[2].count);		
+					}
+				}			
 			}
 		});
 		$("#getCategoryBtn").click(function() {

@@ -81,7 +81,7 @@ public class TodoListDAO {
 		try {
 			con = getConnection();
 			sql.append(
-					" SELECT t.category_no, t.title, t.content, to_char(t.start_date,'YYYY.MM.DD'), to_char(t.end_date,'YYYY.MM.DD'),c.category_name ");
+					" SELECT t.category_no, t.title, t.content, to_char(t.start_date,'YYYY.MM.DD.hh24:mi'), to_char(t.end_date,'YYYY.MM.DD.hh24:mi'),c.category_name ");
 			sql.append(" FROM todo_list t, category c ");
 			sql.append(" WHERE todo_no=? and t.category_no=c.category_no ");
 			pstmt = con.prepareStatement(sql.toString());

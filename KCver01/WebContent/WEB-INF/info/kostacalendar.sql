@@ -41,7 +41,7 @@ create table kc_user(
  
 
  insert into  todo_list(todo_no, id, category_no, title, content, start_date, end_date)
-values (todo_seq.nextval, 'ddoo',1,'도전','도전',to_date('201804051315','YYYYMMDDHH24mi'),to_date('201804051320','YYYYMMDDHH24mi'));
+values (todo_seq.nextval, 'aaaa',1,'도전','도전',to_date('201804051315','YYYYMMDDHH24mi'),to_date('201804051320','YYYYMMDDHH24mi'));
  
  
  insert into kc_user(id,password,name) values('aaaa','1111','정진표');
@@ -50,7 +50,12 @@ values (todo_seq.nextval, 'ddoo',1,'도전','도전',to_date('201804051315','YYY
  insert into kc_user(id,password,name) values('dddd','1111','유바롬');
  insert into kc_user(id,password,name) values('eeee','1111','김영호');
  
-
+select * from todo_list;
+ 
+ 
+ select to_char(start_date,'yyyy/mm/dd/hh24:mi') from todo_list;
+ 
+ 
  insert into category(category_no, category_name) values(1,'공부');
 insert into category(category_no, category_name) values(2,'업무');
 insert into category(category_no, category_name) values(3,'약속');
