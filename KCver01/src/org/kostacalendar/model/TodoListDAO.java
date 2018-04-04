@@ -54,12 +54,10 @@ public class TodoListDAO {
 		ArrayList<TodoListDTO> list = new ArrayList<TodoListDTO>();
 		try {
 			con = getConnection();
-			sql.append(
-					"select t.todo_no,t.category_no,t.title,to_char(t.start_date,'MM/DD/YYYY'),to_char(t.end_date,'MM/DD/YYYY')"); // "select
-																																	// t.todo_no,t.title,t.start_date,t.end_date\n"
-																																	// +
-			sql.append(" from todo_list t, kc_user k"); // " from todo_list t, kc_user k\n" +
-			sql.append(" where t.id=k.id and t.id=?");// " where t.id=k.id and t.id=?"
+			sql.append("select t.todo_no,t.category_no,t.title,to_char(t.start_date,'MM/DD/YYYY'),to_char(t.end_date,'MM/DD/YYYY')"); //"select t.todo_no,t.title,t.start_date,t.end_date\n" + 
+			sql.append(" from todo_list t, kc_user k");		//" from todo_list t, kc_user k\n" + 
+			sql.append(" where t.id=k.id and t.id=?");//" where t.id=k.id and t.id=?"
+			sql.append(" order by t.start_date");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
@@ -239,15 +237,18 @@ public class TodoListDAO {
 		return list;
 	}
 
+	//일정등록하기
 	public void createSchedule(TodoListDTO dto) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
+			System.out.println(dto.getStartDate());
+			System.out.println(dto.getEndDate());
 			con = dataSource.getConnection();
 			StringBuilder sql = new StringBuilder();
 			sql.append("insert into todo_list(todo_no, id, category_no, title, content, start_date, end_date) ");
 			sql.append("values (todo_seq.nextval, ?,?,?,?");
-			sql.append(",to_date(?,'YYYY-MM-DD'),to_date(?,'YYYY-MM-DD'))");
+			sql.append(",to_date(?,'YYYYMMDDHH24mi'),to_date(?,'YYYYMMDDHH24mi'))");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setString(1, dto.getUser().getId());
 			pstmt.setInt(2, dto.getCategory().getCategoryNo());
