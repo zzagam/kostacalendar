@@ -50,7 +50,7 @@ values (todo_seq.nextval, 'ddoo',1,'도전','도전',to_date('201804051315','YYY
  insert into kc_user(id,password,name) values('dddd','1111','유바롬');
  insert into kc_user(id,password,name) values('eeee','1111','김영호');
  
-select * from todo_list;
+
  insert into category(category_no, category_name) values(1,'공부');
 insert into category(category_no, category_name) values(2,'업무');
 insert into category(category_no, category_name) values(3,'약속');

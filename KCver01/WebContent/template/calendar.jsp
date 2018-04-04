@@ -33,6 +33,9 @@
 	         
 	         var start = new Number($('#sttdate').val().replace(/\-/g, '') + $('#stttime').val().replace(/\:/g, ''));
 				var end = new Number($('#enddate').val().replace(/\-/g, '') + $('#endtime').val().replace(/\:/g, ''));
+				alert($("#sttdate").val()+" "+$("#stttime").val()+ " "+$("#enddate").val()+ " "+ $("#endtime").val());
+				console.log($('#sttdate').val().replace(/\-/g, '') + $('#stttime').val().replace(/\:/g, ''));
+				console.log($('#enddate').val().replace(/\-/g, '') + $('#endtime').val().replace(/\:/g, ''));
 				if (start > end) {
 					alert('끝나는 날짜를 다시 지정하여 주세요'); 
 					$('#sttdate').focus;
