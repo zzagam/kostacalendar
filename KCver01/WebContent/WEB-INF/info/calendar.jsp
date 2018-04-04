@@ -111,19 +111,19 @@
 		<div class="row">
 		<div class="col-sm-2">
 		<form action="${pageContext.request.contextPath}/index.jsp">
-			<input type="submit" value="홈으로">
+			<input type="submit" class="btn btn-default btn-lg" value="홈으로">
 		</form><br><hr><br>
-		${sessionScope.dto.name }님 환영합니다.<br>
+			${sessionScope.dto.name }님 환영합니다.<br>
 		<form id="categoryForm">
-		<input type="hidden" name="command" value="getCategoryCount">
-		<input type="hidden" name="userId" value="${sessionScope.dto.id}">
-		<span class ="countCategory1" id="categoryNo1"></span><br>
-		<span class ="countCategory2" id="categoryNo2"></span><br>
-		<span class ="countCategory3" id="categoryNo3"></span><br>
+			<input type="hidden" name="command" value="getCategoryCount">
+			<input type="hidden" name="userId" value="${sessionScope.dto.id}">
+			<span class ="countCategory1" id="categoryNo1"></span><br>
+			<span class ="countCategory2" id="categoryNo2"></span><br>
+			<span class ="countCategory3" id="categoryNo3"></span><br>
 		</form>
 		<form action="${pageContext.request.contextPath}/dispatcher" onsubmit="return checkLogout()">
 			<input type="hidden" name="command" value="logout">
-			<input type="submit" value="로그아웃">
+			<input type="submit" class="btn btn-default btn-lg" value="로그아웃">
 		</form>
 		<form id="getCategory" method="post">
 			<input type="hidden" name="command" value="getCategory">

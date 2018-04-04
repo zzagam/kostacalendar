@@ -74,11 +74,16 @@
 			url:"${pageContext.request.contextPath}/dispatcher",
 			data:$("#categoryForm").serialize(),
 			success:function(data){
-				$("#categoryNo1").html(data[0].category.categoryName+" "+data[0].count);
-				
-				$("#categoryNo2").html(data[1].category.categoryName+" "+data[1].count);
-				
-				$("#categoryNo3").html(data[2].category.categoryName+" "+data[2].count);		
+				for (var i=0 ; i<data.length ; i++){
+					
+					if (data[i].category.categoryNo=="1"){
+						$("#categoryNo1").html(data[i].category.categoryName+" "+data[i].count);
+					}else if(data[i].category.categoryNo=="2"){
+						$("#categoryNo2").html(data[i].category.categoryName+" "+data[i].count);		
+					}else if(data[i].category.categoryNo=="3"){
+						$("#categoryNo3").html(data[i].category.categoryName+" "+data[i].count);
+					}
+				}			
 			}
 		});
 		$("#getCategoryBtn").click(function() {
@@ -98,14 +103,13 @@
 		});
 	});
 </script>
-
 </head>
 <body>
 
 <div class="container-fluid">
 	<div class="col-sm-2 leftSide">
    		<form action="${pageContext.request.contextPath}/index.jsp">
-			<input type="submit" value="홈으로">
+			<input type="submit" class="btn btn-default btn-lg" value="홈으로">
 		</form><br><hr><br>
 		<h2>${sessionScope.dto.name }님</h2>
 		<h2> 환영합니다.</h2><br>
@@ -122,98 +126,76 @@
 				<span class="label countCategory3" id="categoryNo3"></span>
 			</a><br>
 		</form>
-		<form action="${pageContext.request.contextPath}/dispatcher" onsubmit="return checkLogout()">
-			<input type="hidden" name="command" value="logout">
-			<input type="submit" value="로그아웃">
-		</form>
 		<form id="getCategory" method="post">
 			<input type="hidden" name="command" value="getCategory">
 			<button id="getCategoryBtn"  
 					type="button" 
-					class="btn btn-default" 
+					class="btn btn-default btn-lg" 
 					data-toggle="modal"
 					data-target="#myModal">
 					일정추가
 			</button>						
+		</form>	
+		<form action="${pageContext.request.contextPath}/dispatcher" onsubmit="return checkLogout()">
+			<input type="hidden" name="command" value="logout">
+			<input type="submit" class="btn btn-default btn-lg" value="로그아웃">
 		</form>
-				<!-- Modal -->
-			
-   		</div>
-   		<div class="col-sm-7">
-   			<div id="calendar"></div>
-   		</div>
+   	</div>
+   	<div class="col-sm-7">
+   		<div id="calendar"></div>
+   	</div>
     	<div class="col-sm-3 rightSide">
     		<c:import url="${url}"/>
     	</div>
-    	
 </div>
 
-<!-- Modal -->
+	<!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">
-				<div class="modal-dialog">
-
-			<form id="registerForm" 
-				action="${pageContext.request.contextPath}/dispatcher" method="post" onsubmit="return checkRegister()">
+	<div class="modal-dialog">
+		<form id="registerForm" 
+				action="${pageContext.request.contextPath}/dispatcher" 
+				method="post" 
+				onsubmit="return checkRegister()">
 			<input type="hidden" name="command" value="createSchedule">
 						<!-- Modal content-->
-					<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
-								<h4 class="modal-title">일정등록</h4>
-							</div>
-							<div class="modal-body">									
-								<div class="form-group">
-									<label for="category">카테고리</label> 
-									<select class="form-control" id="categorySelect" name="category">
-										<option>선택하세요</option>	
-									</select>
-								</div>
-								<div class="form-group">
-									<label for="title">제목</label> 
-									<input type="text"class="form-control" id="newtitle" name="title">
-								</div>
-								<!-- <div class="row"> -->
-									<!-- <div class="col-sm-12"> -->
-                                   		<div class="form-group">
-                                       		<label for="sttdate">시작일시</label>
-                                       		<input type="date" class="form-control" id="sttdateVal">
-                                  	 		</div>
-                               		<!-- </div> -->
-                              		 	<!-- <div class="col-sm-6">
-                                   		<div class="form-group">
-                                       		<label for="stttime">&nbsp;</label>
-                                       		<input type="time" class="form-control" id="stttime">
-                                   		</div>
-                               		</div> -->
-								<!-- </div> -->
-								<!-- <div class="row"> -->
-									<!-- <div class="col-sm-12"> -->
-                                   		<div class="form-group">
-                                      	 		<label for="enddate">종료일시</label>
-                                       		<input type="date" class="form-control" id="enddateVal">
-                                   		</div>
-                               		<!-- </div> -->
-                               		<!-- <div class="col-sm-6">
-                                   		<div class="form-group">
-                                       		<label for="endtime">&nbsp;</label>
-                                       		<input type="time" class="form-control" id="endtime">
-                                   		</div>
-                               		</div>
-								</div> -->
-								<div class="form-group">
-									<label>설명</label>
-									<textarea class="form-control" rows="5" id="newDescription" name="description">
-									</textarea>
-								</div>
-							</div>
-							<div class="modal-footer">
-								<input type="submit" class="btn btn-default"	id="registerBtn" value="등록">
-								<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-							</div>
-						</div>
-			</form>
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">일정등록</h4>
+				</div>
+				<div class="modal-body">									
+					<div class="form-group">
+						<label for="category">카테고리</label> 
+						<select class="form-control" id="categorySelect" name="category">
+							<option>선택하세요</option>	
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="title">제목</label> 
+						<input type="text"class="form-control" id="newtitle" name="title">
+					</div>
+                   		<div class="form-group">
+                       		<label for="sttdate">시작일시</label>
+                       		<input type="date" class="form-control" id="sttdateVal">
+                  	 	</div>
+					<div class="form-group">
+						<label for="enddate">종료일시</label>
+						<input type="date" class="form-control" id="enddateVal">
+					</div>
+					<div class="form-group">
+						<label>설명</label>
+						<textarea class="form-control" rows="5" id="newDescription" name="description">
+						</textarea>
 					</div>
 				</div>
+				<div class="modal-footer">
+					<input type="submit" class="btn btn-default"	id="registerBtn" value="등록">
+					<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
 
 
 </body>
