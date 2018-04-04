@@ -37,6 +37,7 @@ create table kc_user(
  
  create sequence todo_seq;
  
+ commit
  
  insert into kc_user(id,password,name) values('aaaa','1111','정진표');
  insert into kc_user(id,password,name) values('bbbb','1111','김지은');

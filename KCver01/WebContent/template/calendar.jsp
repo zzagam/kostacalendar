@@ -29,7 +29,7 @@
 	         if (!moment(start).isSame(end) && !moment(start).isBefore(end)) {
 	            alert("끝나는 날짜를 다시 지정하여 주세요"); 
 	            return false;
-	         }    
+	         } 
 	      });
 	})
 </script>
@@ -101,56 +101,65 @@
 
 </head>
 <body>
-<div class="container-fluid">
-	<div class="row-sm-2">
-		<%-- header --%>
-	</div>
-	<div class="row-sm-10">
-	
-    		<div class="col-sm-2 leftSide">
-    			<form action="${pageContext.request.contextPath}/index.jsp">
-				<input type="submit" value="홈으로">
-			</form><br><hr><br>
-			<h2>${sessionScope.dto.name }님</h2>
-			<h2> 환영합니다.</h2><br>
-			<form id="categoryForm">
-				<input type="hidden" name="command" value="getCategoryCount">
-				<input type="hidden" name="userId" value="${sessionScope.dto.id}">
-				<a href="${pageContext.request.contextPath}/dispatcher?command=readCountDetail&categoryNo=1">
-					<span class="label countCategory1" id="categoryNo1"></span>
-				</a><br>
-				<a href="${pageContext.request.contextPath}/dispatcher?command=readCountDetail&categoryNo=2">
-					<span class="label countCategory2" id="categoryNo2"></span>
-				</a><br>
-				<a href="${pageContext.request.contextPath}/dispatcher?command=readCountDetail&categoryNo=3">
-					<span class="label countCategory3" id="categoryNo3"></span>
-				</a><br>
-			</form>
-			<form action="${pageContext.request.contextPath}/dispatcher" onsubmit="return checkLogout()">
-				<input type="hidden" name="command" value="logout">
-				<input type="submit" value="로그아웃">
-			</form>
-			<form id="getCategory" method="post">
-				<input type="hidden" name="command" value="getCategory">
-				<button id="getCategoryBtn"  
-						type="button" 
-						class="btn btn-default" 
-						data-toggle="modal"
-						data-target="#myModal">
-						일정추가
-				</button>						
-			</form>
-			<form id="registerForm" action="${pageContext.request.contextPath}/dispatcher" method="post" onsubmit="return checkRegister()">
-				<input type="hidden" name="command" value="createSchedule">
-					<!-- Modal -->
-				<div class="modal fade" id="myModal" role="dialog">
-					<div class="modal-dialog">
 
-							<!-- Modal content-->
-						<div class="modal-content">
+<div class="container-fluid">
+	<div class="col-sm-2 leftSide">
+   		<form action="${pageContext.request.contextPath}/index.jsp">
+			<input type="submit" value="홈으로">
+		</form><br><hr><br>
+		<h2>${sessionScope.dto.name }님</h2>
+		<h2> 환영합니다.</h2><br>
+		<form id="categoryForm">
+			<input type="hidden" name="command" value="getCategoryCount">
+			<input type="hidden" name="userId" value="${sessionScope.dto.id}">
+			<a href="${pageContext.request.contextPath}/dispatcher?command=readCountDetail&categoryNo=1">
+				<span class="label countCategory1" id="categoryNo1"></span>
+			</a><br>
+			<a href="${pageContext.request.contextPath}/dispatcher?command=readCountDetail&categoryNo=2">
+				<span class="label countCategory2" id="categoryNo2"></span>
+			</a><br>
+			<a href="${pageContext.request.contextPath}/dispatcher?command=readCountDetail&categoryNo=3">
+				<span class="label countCategory3" id="categoryNo3"></span>
+			</a><br>
+		</form>
+		<form action="${pageContext.request.contextPath}/dispatcher" onsubmit="return checkLogout()">
+			<input type="hidden" name="command" value="logout">
+			<input type="submit" value="로그아웃">
+		</form>
+		<form id="getCategory" method="post">
+			<input type="hidden" name="command" value="getCategory">
+			<button id="getCategoryBtn"  
+					type="button" 
+					class="btn btn-default" 
+					data-toggle="modal"
+					data-target="#myModal">
+					일정추가
+			</button>						
+		</form>
+				<!-- Modal -->
+			
+   		</div>
+   		<div class="col-sm-7">
+   			<div id="calendar"></div>
+   		</div>
+    	<div class="col-sm-3 rightSide">
+    		<c:import url="${url}"/>
+    	</div>
+    	
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+				<div class="modal-dialog">
+
+			<form id="registerForm" 
+				action="${pageContext.request.contextPath}/dispatcher" method="post" onsubmit="return checkRegister()">
+			<input type="hidden" name="command" value="createSchedule">
+						<!-- Modal content-->
+					<div class="modal-content">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h4 class="modal-title">일정등록</h4>
+								<h4 class="modal-title">일정등록</h4>
 							</div>
 							<div class="modal-body">									
 								<div class="form-group">
@@ -163,14 +172,34 @@
 									<label for="title">제목</label> 
 									<input type="text"class="form-control" id="newtitle" name="title">
 								</div>
-								<div class="form-group">
-									<label for="sttdateVal">시작일시</label> 
-									<input type="date" class="form-control" id="sttdateVal" name="sttdate">
-								</div>
-								<div class="form-group">
-									<label for="enddateVal">종료일시</label> 
-									<input type="date" class="form-control" id="enddateVal" name="enddate">
-								</div>
+								<!-- <div class="row"> -->
+									<!-- <div class="col-sm-12"> -->
+                                   		<div class="form-group">
+                                       		<label for="sttdate">시작일시</label>
+                                       		<input type="date" class="form-control" id="sttdateVal">
+                                  	 		</div>
+                               		<!-- </div> -->
+                              		 	<!-- <div class="col-sm-6">
+                                   		<div class="form-group">
+                                       		<label for="stttime">&nbsp;</label>
+                                       		<input type="time" class="form-control" id="stttime">
+                                   		</div>
+                               		</div> -->
+								<!-- </div> -->
+								<!-- <div class="row"> -->
+									<!-- <div class="col-sm-12"> -->
+                                   		<div class="form-group">
+                                      	 		<label for="enddate">종료일시</label>
+                                       		<input type="date" class="form-control" id="enddateVal">
+                                   		</div>
+                               		<!-- </div> -->
+                               		<!-- <div class="col-sm-6">
+                                   		<div class="form-group">
+                                       		<label for="endtime">&nbsp;</label>
+                                       		<input type="time" class="form-control" id="endtime">
+                                   		</div>
+                               		</div>
+								</div> -->
 								<div class="form-group">
 									<label>설명</label>
 									<textarea class="form-control" rows="5" id="newDescription" name="description">
@@ -178,23 +207,15 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<input type="submit" class="btn btn-default"	id="registerBtn" value="바보">
+								<input type="submit" class="btn btn-default"	id="registerBtn" value="등록">
 								<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 							</div>
 						</div>
+			</form>
 					</div>
 				</div>
-			</form>
-    		</div>
-    		<div class="col-sm-7">
-    			<div id="calendar"></div>
-    		</div>
-    		
-    		<div class="col-sm-3 rightSide">
-    			<c:import url="${url}"/>
-    		</div>
-    	</div>
-</div>
+
+
 </body>
 <script type="text/javascript">
 	function checkLogout(){
