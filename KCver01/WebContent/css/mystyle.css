@@ -33,25 +33,32 @@ a:hover{
 	font-size:25px;
 	background-color: #FA5882;
 	color:#fff;	
-	border-radius: 7px;
+	border-radius: 5px;
 	right: 10px;
 	border-color:black;
+	width:120px;
+	display: inline-block;
+	
 }
 
 .countCategory2{
 	font-size:25px;
 	background-color: #81DAF5;
 	color:#fff;	
-	border-radius: 7px;
+	border-radius: 5px;
 	border-color:black;
+	width:120px;
+	display: inline-block;
 }
 	
 .countCategory3{
 	font-size:25px;
 	background-color: #c5f0a2;
 	color:#fff;	
-	border-radius: 7px;
+	border-radius: 5px;
 	border-color:black;
+	width:120px;
+	display: inline-block;
 }
 .btn {
     /* 필수적으로 입력해 주어야 하는 속성 */

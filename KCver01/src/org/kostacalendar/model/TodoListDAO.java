@@ -300,4 +300,62 @@ public class TodoListDAO {
 		return list;
 	}
 
+	public int getTotalTodoListById(String id) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		StringBuilder sql = new StringBuilder();
+		try {
+			con=getConnection();
+			sql.append("select count(*) from todo_list");
+			sql.append(" where id=?");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, id);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		return 0;
+	}
+
+	public ArrayList<TodoListDTO> getBoardTodoListById(String id, int startRow, int endRow) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		StringBuilder sql = new StringBuilder();
+		ArrayList<TodoListDTO> list = new ArrayList<TodoListDTO>();
+		try {
+	
+			con=getConnection();
+			sql.append("select t.todo_no, t.category_no, c.category_name, t.title,");
+			sql.append(" to_char(t.start_date,'yyyy/mm/dd.hh24:mi'),");
+			sql.append(" to_char(t.end_date,'yyyy/mm/dd.hh24:mi') ");
+			sql.append(" from(");
+			sql.append(" select row_number() over(order by todo_no desc) as rnum,");
+			sql.append(" todo_no, category_no, title,");
+			sql.append(" start_date, end_date ");
+			sql.append(" from todo_list where id=?)t, category c");
+			sql.append(" where t.category_no=c.category_no and rnum between ? and ?");
+			sql.append(" order by todo_no desc");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, id);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				list.add(new TodoListDTO(rs.getInt(1), null, 
+						new CategoryDTO(rs.getInt(2), 
+								rs.getString(3)), 
+						rs.getString(4), null, 
+						rs.getString(5), rs.getString(6)));
+			}
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		return list;
+	}
+
 }

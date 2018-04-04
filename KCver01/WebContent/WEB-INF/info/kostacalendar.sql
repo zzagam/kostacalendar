@@ -15,7 +15,7 @@ create table kc_user(
  
  select name, grade from kc_user where id='aaaa' and password='1111';
  
- 
+
 
  create table category(
  	category_no number primary key,
@@ -34,6 +34,25 @@ create table kc_user(
  	constraint fk_category_no foreign key(category_no) references category,
  	constraint pk_todo_list primary key(id, category_no, todo_no)
  )
+ 
+ select t.todo_no, t.id, t.category_no, c.category_name, t.title, t.content,
+ 		to_char(t.start_date,'yyyy/mm/dd.hh24:mi'), to_char(t.end_date,'yyyy/mm/dd.hh24:mi')
+ 		from todo_list t, category c
+ 		where t.category_no=c.category_no and t.id='aaaa' order by t.todo_no desc;
+ 
+ 		
+select t.todo_no, t.category_no, c.category_name, t.title, 
+to_char(t.start_date,'yyyy/mm/dd.hh24:mi'), 
+to_char(t.end_date,'yyyy/mm/dd.hh24:mi') 
+from(
+	select row_number() over(order by todo_no desc) as rnum, 
+	todo_no, category_no, title, 
+	start_date, end_date 
+	from todo_list where id='aaaa')t, category c
+	where t.category_no=c.category_no and rnum between 1 and 2
+	order by todo_no desc;
+
+ 		
  
  create sequence todo_seq;
  

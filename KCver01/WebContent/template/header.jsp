@@ -48,6 +48,7 @@
 				<ul class="nav navbar-nav navbar-right">
 			      <li onclick="checkLogout()"><a style="cursor: pointer;"><span class="glyphicon glyphicon-log-out" ></span> Logout</a></li>
 			    </ul>
+			    
 			</div>
 		</div>
 	</nav>   

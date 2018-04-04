@@ -40,6 +40,8 @@ public class HandlerMapping {
 			c=new ReadCountDetailController();
 		}else if (command.equals("ajaxId")) {
 			c=new AjaxCheckIdController();
+		}else if (command.equals("getBoard")) {
+			c=new getBoardController();
 		}
 		return c;
 	}

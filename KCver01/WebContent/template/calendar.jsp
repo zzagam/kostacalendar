@@ -3,21 +3,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="header.jsp"/>
 	<div class="container-fluid">
-		<div class="col-sm-2 leftSide" style="padding-top: 100px">
-			<h2>${sessionScope.dto.name }님</h2>
-			<h2> 환영합니다.</h2><br>
+		<div class="col-sm-2 leftSide" style="padding-top: 100px">			
+			<h2> Welcome Friend!</h2>
+			<h2>${sessionScope.dto.name}</h2>
 			<form id="categoryForm">
 				<input type="hidden" name="command" value="getCategoryCount">
 				<input type="hidden" name="userId" value="${sessionScope.dto.id}">
 				<a href="${pageContext.request.contextPath}/dispatcher?command=readCountDetail&categoryNo=1">
 					<span class="countCategory1" id="categoryNo1"></span>
-				</a><br>
+				</a><br><br>
 				<a href="${pageContext.request.contextPath}/dispatcher?command=readCountDetail&categoryNo=2">
 					<span class="countCategory2" id="categoryNo2"></span>
-				</a><br>
+				</a><br><br>
 				<a href="${pageContext.request.contextPath}/dispatcher?command=readCountDetail&categoryNo=3">
 					<span class="countCategory3" id="categoryNo3"></span>
-				</a><br>
+				</a><br><br>
 			</form>
 			<form id="getCategory" method="post">
 				<input type="hidden" name="command" value="getCategory">
@@ -29,7 +29,11 @@
 						일정추가
 				</button>						
 			</form>
-					<!-- Modal -->
+			
+				<button type="button" class="btn btn-default" onclick="openBoard()">
+						전체일정게시판
+				</button>
+			
 	   	</div>
    		<div class="col-sm-7">
    			<div id="calendar" style="padding-top: 100px"></div>
@@ -48,7 +52,7 @@
 						<div class="modal-content">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
-								<h4 class="modal-title">일정등록</h4>
+								<h3 class="modal-title">일정등록</h3>
 							</div>
 							<div class="modal-body">									
 								<div class="form-group">
@@ -139,6 +143,11 @@
 	})
 </script>
 <script type="text/javascript">
+
+function openBoard(){
+	var popUrl = "${pageContext.request.contextPath}/dispatcher?command=getBoard";
+	window.open(popUrl, 'pop','toolbar=yes,menubar=yes,status=yes,scrollbars=no,resizable=no,width=500,height=500,top=50,left=50;');
+}
 
 function goHomeBtn(){
 	location.href="${pageContext.request.contextPath}/index.jsp";

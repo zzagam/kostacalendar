@@ -16,7 +16,7 @@
 </head>
 <body class="login-body">
 <c:choose>
-<c:when test="${sessionScope.dto==null}">
+<c:when test="${sessionScope.dto.id==null}">
 
 <div class="image-main">
 <img src="${pageContext.request.contextPath}/img/mainImg.png" width="10%">
