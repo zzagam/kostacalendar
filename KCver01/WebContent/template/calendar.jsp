@@ -1,143 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/mystyle.css?ver10"/>
-<link href='${pageContext.request.contextPath}/css/fullcalendar-3.9.0/fullcalendar.min.css' rel='stylesheet' />
-<link href='${pageContext.request.contextPath}/css/fullcalendar-3.9.0/fullcalendar.print.min.css' rel='stylesheet' media='print' />
-<script src='${pageContext.request.contextPath}/css/fullcalendar-3.9.0/lib/moment.min.js'></script>
-<script src='${pageContext.request.contextPath}/css/fullcalendar-3.9.0/lib/jquery.min.js'></script>
-<script src='${pageContext.request.contextPath}/css/fullcalendar-3.9.0/fullcalendar.min.js'></script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<title>Insert title here</title>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#registerBtn").click(function () {
-	         if ($("#newtitle").val().length > 8 || $("#newtitle").val().length == 0) {
-	            alert('제목은 8글자 이내로 작성해주세요'); 
-	            $("#newtitle").val("");      
-	            return false;
-	         }
-	         /* var start = $("#sttdateVal").val();
-	         var end = $("#enddateVal").val();
-	         if (!moment(start).isSame(end) && !moment(start).isBefore(end)) {
-	            alert("끝나는 날짜를 다시 지정하여 주세요"); 
-	            return false;
-	         } */
-	         
-	         var start = new Number($('#sttdate').val().replace(/\-/g, '') + $('#stttime').val().replace(/\:/g, ''));
-				var end = new Number($('#enddate').val().replace(/\-/g, '') + $('#endtime').val().replace(/\:/g, ''));
-				alert($("#sttdate").val()+" "+$("#stttime").val()+ " "+$("#enddate").val()+ " "+ $("#endtime").val());
-				console.log($('#sttdate').val().replace(/\-/g, '') + $('#stttime').val().replace(/\:/g, ''));
-				console.log($('#enddate').val().replace(/\-/g, '') + $('#endtime').val().replace(/\:/g, ''));
-				if (start > end) {
-					alert('끝나는 날짜를 다시 지정하여 주세요'); 
-					$('#sttdate').focus;
-				}
-	      });
-	})
-</script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		var todoJson=${requestScope.todo_list}; 
-		var events= new Array();
-		var todoEvents2 = new Array();
-		for (var i=0 ; i<todoJson.length ; i++){
-			event = new Object();
-			event.title = todoJson[i].title;
-			event.start = new Date(todoJson[i].startDate);
-			var endDate = new Date(todoJson[i].endDate);
-			event.end = endDate+1;
-			event.todoNo=todoJson[i].todoNo;
-			event.url="${pageContext.request.contextPath}/dispatcher?command=readDetail&todoNo="+todoJson[i].todoNo+"&userId=${sessionScope.dto.id}";
-			
-			 if (todoJson[i].category.categoryNo==1){
-				event.backgroundColor='#FF0040';
-				event.borderColor='#FF0040';
-				
-			}else if (todoJson[i].category.categoryNo==2){
-				event.backgroundColor='#04B45F';
-				event.borderColor='#04B45F';
-			}else if (todoJson[i].category.categoryNo==3){
-				event.backgroundColor='#FF8000';
-				event.borderColor='#FF8000';
-			}  
-			events.push(event);
-		}
-		$('#calendar').fullCalendar({
-			  header: {
-				left: 'prev,next today',
-				center: 'title'
-			}, displayEventTime: false
-		});
-		$('#calendar').fullCalendar('addEventSource',events);
-		
-		$.ajax({
-			type:"post",
-			dataType:"json",
-			url:"${pageContext.request.contextPath}/dispatcher",
-			data:$("#categoryForm").serialize(),
-			success:function(data){
-				for (var i=0 ; i<data.length ; i++){
-					if (data[i].category.categoryNo=="1"){
-						$("#categoryNo1").html(data[0].category.categoryName+" "+data[0].count);		
-					}else if (data[i].category.categoryNo=="2"){
-						$("#categoryNo2").html(data[1].category.categoryName+" "+data[1].count);		
-					}else if (data[i].category.categoryNo=="3"){
-						$("#categoryNo3").html(data[2].category.categoryName+" "+data[2].count);		
-					}
-				}			
-			}
-		});
-		$("#getCategoryBtn").click(function() {
-			$("#categorySelect").html("<option>선택하세요</option>");
-			$.ajax({
-					type : "post",
-					dataType : "json",
-					url : "${pageContext.request.contextPath}/dispatcher",
-					data : $("#getCategory").serialize(),
-					success : function(datas) {									
-						for (var i=0 ; i<datas.length ; i++){										
-							var options = "<option value="+datas[i].categoryNo+">"+datas[i].categoryName+"</option>";
-							$("#categorySelect").append(options); 
-						}
-					}								
-			});							
-		});
-	});
-</script>
-
-</head>
-<body>
+<jsp:include page="header.jsp"/>
 	<div class="container-fluid">
-		<div class="col-sm-2 leftSide">
-	   		<form action="${pageContext.request.contextPath}/index.jsp">
-				<input type="submit" value="홈으로">
-			</form><br><hr><br>
+		<div class="col-sm-2 leftSide" style="padding-top: 100px">
 			<h2>${sessionScope.dto.name }님</h2>
 			<h2> 환영합니다.</h2><br>
 			<form id="categoryForm">
 				<input type="hidden" name="command" value="getCategoryCount">
 				<input type="hidden" name="userId" value="${sessionScope.dto.id}">
 				<a href="${pageContext.request.contextPath}/dispatcher?command=readCountDetail&categoryNo=1">
-					<span class="label countCategory1" id="categoryNo1"></span>
+					<span class="countCategory1" id="categoryNo1"></span>
 				</a><br>
 				<a href="${pageContext.request.contextPath}/dispatcher?command=readCountDetail&categoryNo=2">
-					<span class="label countCategory2" id="categoryNo2"></span>
+					<span class="countCategory2" id="categoryNo2"></span>
 				</a><br>
 				<a href="${pageContext.request.contextPath}/dispatcher?command=readCountDetail&categoryNo=3">
-					<span class="label countCategory3" id="categoryNo3"></span>
+					<span class="countCategory3" id="categoryNo3"></span>
 				</a><br>
-			</form>
-			<form action="${pageContext.request.contextPath}/dispatcher" onsubmit="return checkLogout()">
-				<input type="hidden" name="command" value="logout">
-				<input type="submit" value="로그아웃">
 			</form>
 			<form id="getCategory" method="post">
 				<input type="hidden" name="command" value="getCategory">
@@ -152,9 +32,9 @@
 					<!-- Modal -->
 	   	</div>
    		<div class="col-sm-7">
-   			<div id="calendar"></div>
+   			<div id="calendar" style="padding-top: 100px"></div>
    		</div>
-    	<div class="col-sm-3 rightSide">
+    	<div class="col-sm-3 rightSide" style="padding-top: 100px">
     		<c:import url="${url}"/>
     	</div>
 	</div>
@@ -226,13 +106,110 @@
 
 </body>
 <script type="text/javascript">
-	function checkLogout(){
-		var flag = confirm("로그아웃 하시겠습니까?");
-		return flag;
-	};
 	function checkRegister(){
 		var flag = confirm("일정을 등록하시겠습니까?");
 		return flag;
 	};
+</script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#registerBtn").click(function () {
+	         if ($("#newtitle").val().length > 8 || $("#newtitle").val().length == 0) {
+	            alert('제목은 8글자 이내로 작성해주세요'); 
+	            $("#newtitle").val("");      
+	            return false;
+	         }
+	         /* var start = $("#sttdateVal").val();
+	         var end = $("#enddateVal").val();
+	         if (!moment(start).isSame(end) && !moment(start).isBefore(end)) {
+	            alert("끝나는 날짜를 다시 지정하여 주세요"); 
+	            return false;
+	         } */
+	         
+	         var start = new Number($('#sttdate').val().replace(/\-/g, '') + $('#stttime').val().replace(/\:/g, ''));
+				var end = new Number($('#enddate').val().replace(/\-/g, '') + $('#endtime').val().replace(/\:/g, ''));
+				alert($("#sttdate").val()+" "+$("#stttime").val()+ " "+$("#enddate").val()+ " "+ $("#endtime").val());
+				console.log($('#sttdate').val().replace(/\-/g, '') + $('#stttime').val().replace(/\:/g, ''));
+				console.log($('#enddate').val().replace(/\-/g, '') + $('#endtime').val().replace(/\:/g, ''));
+				if (start > end) {
+					alert('끝나는 날짜를 다시 지정하여 주세요'); 
+					$('#sttdate').focus;
+				}
+	      });
+	})
+</script>
+<script type="text/javascript">
+
+function goHomeBtn(){
+	location.href="${pageContext.request.contextPath}/index.jsp";
+};
+
+	$(document).ready(function() {
+		var todoJson=${requestScope.todo_list}; 
+		var events= new Array();
+		var todoEvents2 = new Array();
+		for (var i=0 ; i<todoJson.length ; i++){
+			event = new Object();
+			event.title = todoJson[i].title;
+			event.start = new Date(todoJson[i].startDate);
+			var endDate = new Date(todoJson[i].endDate);
+			event.end = endDate+1;
+			event.todoNo=todoJson[i].todoNo;
+			event.url="${pageContext.request.contextPath}/dispatcher?command=readDetail&todoNo="+todoJson[i].todoNo+"&userId=${sessionScope.dto.id}";
+			
+			 if (todoJson[i].category.categoryNo==1){
+				event.backgroundColor='#FA5882';
+				event.borderColor='#FA5882';
+				
+			}else if (todoJson[i].category.categoryNo==2){
+				event.backgroundColor='#81DAF5';
+				event.borderColor='#81DAF5';
+			}else if (todoJson[i].category.categoryNo==3){
+				event.backgroundColor='#c5f0a2';
+				event.borderColor='#c5f0a2';
+			}  
+			events.push(event);
+		}
+		$('#calendar').fullCalendar({
+			  header: {
+				left: 'prev,next today',
+				center: 'title'
+			}, displayEventTime: false
+		});
+		$('#calendar').fullCalendar('addEventSource',events);
+		
+		$.ajax({
+			type:"post",
+			dataType:"json",
+			url:"${pageContext.request.contextPath}/dispatcher",
+			data:$("#categoryForm").serialize(),
+			success:function(data){
+				for (var i=0 ; i<data.length ; i++){
+					if (data[i].category.categoryNo=="1"){
+						$("#categoryNo1").html(data[0].category.categoryName+" "+data[0].count);		
+					}else if (data[i].category.categoryNo=="2"){
+						$("#categoryNo2").html(data[1].category.categoryName+" "+data[1].count);		
+					}else if (data[i].category.categoryNo=="3"){
+						$("#categoryNo3").html(data[2].category.categoryName+" "+data[2].count);		
+					}
+				}			
+			}
+		});
+		$("#getCategoryBtn").click(function() {
+			$("#categorySelect").html("<option>선택하세요</option>");
+			$.ajax({
+					type : "post",
+					dataType : "json",
+					url : "${pageContext.request.contextPath}/dispatcher",
+					data : $("#getCategory").serialize(),
+					success : function(datas) {									
+						for (var i=0 ; i<datas.length ; i++){										
+							var options = "<option value="+datas[i].categoryNo+">"+datas[i].categoryName+"</option>";
+							$("#categorySelect").append(options); 
+						}
+					}								
+			});							
+		});
+	});
 </script>
 </html>

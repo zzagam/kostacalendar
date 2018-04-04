@@ -7,7 +7,7 @@
 </c:if>
 
 
-
+<h1>오늘의 할일 목록</h1>
 <c:forEach items="${requestScope.todayList}" var="todo">
  <div class="panel panel-danger">
     <div class="panel-heading">${todo.startDate}</div>

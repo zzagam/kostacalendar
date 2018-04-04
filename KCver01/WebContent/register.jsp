@@ -5,68 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/mystyle.css"/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-<style>
-   body {
-      color: #fff;
-      background: #04B486;
-   }
-   .form-control {
-      min-height: 41px;
-      background: #f2f2f2;
-      box-shadow: none !important;
-      border: transparent;
-   }
-   .form-control:focus {
-      background: #e2e2e2;
-   }
-   .form-control, .btn {        
-        border-radius: 2px;
-    }
-   .login-form {
-      width: 350px;
-      margin: 30px auto;
-      text-align: center;
-   }
-   .login-form h2 {
-        margin: 10px 0 25px;
-    }
-    .login-form form {
-      color: #7a7a7a;
-      border-radius: 3px;
-       margin-bottom: 15px;
-        background: #fff;
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-        padding: 30px;
-    }
-    .login-form .btn {        
-        font-size: 16px;
-        font-weight: bold;
-      background: #04B486;
-      border: none;
-        outline: none !important;
-    }
-   .login-form .btn:hover, .login-form .btn:focus {
-      background: #0B614B;
-   }
-   .login-form a {
-      color: #fff;
-      text-decoration: underline;
-   }
-   .login-form a:hover {
-      text-decoration: none;
-   }
-   .login-form form a {
-      color: #7a7a7a;
-      text-decoration: none;
-   }
-   .login-form form a:hover {
-      text-decoration: underline;
-   }
-</style>
+
 <script type="text/javascript">
 $(document).ready(function() {
 	   $("#id").keyup(function() {
@@ -114,7 +58,12 @@ function checkForm(){
    }
 </script>
 </head>
-<body>
+<body class="login-body">
+
+<div class="image-main">
+<img src="${pageContext.request.contextPath}/img/mainImg.png" width="10%">
+</div>
+
 <div class="login-form">
 <form method="post" name="registerForm" id="idForm" action="dispatcher" onsubmit="return checkForm()">
    <input type="hidden" name="command" value="createUser">

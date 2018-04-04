@@ -9,14 +9,9 @@ public class LogoutController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession(false);
-		
 		if (session.getAttribute("dto")!=null || session!=null) {
 			session.invalidate();
 		}
-		
-		
-		
-		
 		return "redirect:index.jsp";
 	}
 
