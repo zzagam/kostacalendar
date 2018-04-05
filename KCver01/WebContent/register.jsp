@@ -16,19 +16,26 @@ $(document).ready(function() {
 	   $("#id").keyup(function() {
 		   var id = $("#id").val();
 		   
-		    $.ajax({
-				type : "post",
-				dataType : "json",
-				url : "/KCver01/dispatcher",
-				data : "command=ajaxId&userId="+id,
-				success : function(data) {
-					$("#checkResult").html("");
-					if (data.flag=="fail"){
-						$("#checkResult").html("사용할 수 없는 아이디입니다.");
-						$("#checkResult").css("color", "red");
-					}		
-				}											
-			}); 
+		   
+		   if(id.length<4||id.length>10){
+	            $("#checkResult").html(
+	                  "아이디는 4자이상 10자이하만 가능!").css("color","pink");
+	         }else{
+		   
+			    $.ajax({
+					type : "post",
+					dataType : "json",
+					url : "/KCver01/dispatcher",
+					data : "command=ajaxId&userId="+id,
+					success : function(data) {
+						$("#checkResult").html("");
+						if (data.flag=="fail"){
+							$("#checkResult").html("사용할 수 없는 아이디입니다.");
+							$("#checkResult").css("color", "red");
+						}		
+					}											
+				});
+	         }
 	   })
 })
 
@@ -40,11 +47,15 @@ function checkForm(){
    if(f.password.value!=f.repeatPassword.value){
       alert("패스워드와 패스워드 확인이 일치하지 않습니다");
       return false;
-   }
-   if(f.flag.value!=f.id.value){
+   }else if(f.flag.value!=f.id.value){
       alert("인증받은 아이디가 아닙니다\n아이디 중복확인을 하세요");
       return false;                                                 
-   }   
+   }else{
+	   alert("회원가입을 축하합니다\n로그인해주세요");
+	   return true;
+   }
+   
+  	
 }
 
    function checkId() {
