@@ -3,10 +3,13 @@
 
 <script type="text/javascript">
 function update(){
-	if(confirm("게시글을 수정하시겠습니까?")){
+	var submit_check=confirm("게시글을 수정하시겠습니까?");
+	return submit_check;
+	//if(confirm("게시글을 수정하시겠습니까?")){
 		//${pageContext.request.contextPath}/
-	location.href="dispatcher?command=updateView&todoNo="+${requestScope.tdto.todoNo};
-	}
+	//location.href="dispatcher?command=updateView&todoNo="+${requestScope.tdto.todoNo};
+	
+	//}
 }
 function deleteCategory(){
 	if(confirm("게시글을 삭제하시겠습니까?")){
@@ -42,8 +45,10 @@ function deleteCategory(){
 	</div><br>
 </div>
 
-<form>
-<input type="button" value="수정" class="btn btn-default" onclick="update()">
+<form action="dispatcher" method="post">
+<input type="hidden" name="command" value="updateView">
+<input type="hidden" name="todoNo" value="${requestScope.tdto.todoNo}">
+<input type="submit" value="수정" class="btn btn-default" onclick="update()">
 <input type="button" value="삭제" class="btn btn-default" onclick="deleteCategory()">
 </form>
 
