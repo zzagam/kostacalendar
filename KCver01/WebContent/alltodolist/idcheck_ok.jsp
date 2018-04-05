@@ -16,7 +16,7 @@
 </script>
 </head>
 <body class="calendar-body" bgcolor="white" onunload="closeWindow()">
-	<%=request.getParameter("id") %> 는 <span style="color: green;">사용가능한 아이디</span>입니다!
+	<%=request.getParameter("id") %> 는 <span style="color: green;">중복되지 않는 아이디</span>입니다!
 	
 	<br>
 	<br>

@@ -41,7 +41,7 @@ public class HandlerMapping {
 		}else if (command.equals("ajaxId")) {
 			c=new AjaxCheckIdController();
 		}else if (command.equals("getBoard")) {
-			c=new getBoardController();
+			c=new GetBoardController();
 		}
 		return c;
 	}

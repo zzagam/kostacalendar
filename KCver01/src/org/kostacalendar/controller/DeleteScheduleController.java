@@ -31,7 +31,7 @@ public class DeleteScheduleController implements Controller {
 		request.setAttribute("tdto", todo);
 		request.setAttribute("todoNo", todoNo);
 		request.setAttribute("url", "right.jsp");
-		return "index.jsp";
+		return "redirect:index.jsp";
 	}
 
 }

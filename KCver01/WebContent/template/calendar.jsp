@@ -139,8 +139,9 @@
 	         var start = new Number($('#sttdate').val().replace(/\-/g, '') + $('#stttime').val().replace(/\:/g, ''));
 				var end = new Number($('#enddate').val().replace(/\-/g, '') + $('#endtime').val().replace(/\:/g, ''));
 				if (start > end) {
-					alert('끝나는 날짜를 다시 지정하여 주세요'); 
+					alert('끝나는 날짜를 다시 지정하여 주세요');
 					$('#sttdate').focus;
+					return false;
 				}
 	      });
 	})

@@ -12,7 +12,7 @@ import org.kostacalendar.model.PagingBean;
 import org.kostacalendar.model.TodoListDAO;
 import org.kostacalendar.model.TodoListDTO;
 
-public class getBoardController implements Controller {
+public class GetBoardController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

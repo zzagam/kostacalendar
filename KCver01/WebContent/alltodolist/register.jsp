@@ -15,8 +15,6 @@
 $(document).ready(function() {
 	   $("#id").keyup(function() {
 		   var id = $("#id").val();
-		   
-		   
 		   if(id.length<4||id.length>10){
 	            $("#checkResult").html(
 	                  "아이디는 4자이상 10자이하만 가능!").css("color","pink");
@@ -43,17 +41,28 @@ $(document).ready(function() {
 
 
 function checkForm(){
-   var f=document.registerForm;   
-   if(f.password.value!=f.repeatPassword.value){
+    var f=document.registerForm;
+    var str_space = /\s/;  // 공백체크
+    if(str_space.exec(f.id.value)) { //공백 체크
+        alert("해당 항목에는 공백을 사용할 수 없습니다.\n\n공백은 자동적으로 제거 됩니다.");
+        f.id.focus();
+        f.id.value = f.id.value.replace(' ',''); // 공백제거
+        return false;
+    }if(f.password.value!=f.repeatPassword.value){
       alert("패스워드와 패스워드 확인이 일치하지 않습니다");
       return false;
-   }else if(f.flag.value!=f.id.value){
+   }if(f.flag.value!=f.id.value){
       alert("인증받은 아이디가 아닙니다\n아이디 중복확인을 하세요");
       return false;                                                 
-   }else{
-	   alert("회원가입을 축하합니다\n로그인해주세요");
-	   return true;
+   }if(f.id.value.length<4 || f.id.value.length>10){
+	   alert("아이디는 4자 이상 10자 이하여야 합니다.");
+	   return false;
    }
+   
+   alert("회원가입을 축하합니다\n로그인해주세요");
+   return true;
+   
+
    
   	
 }
