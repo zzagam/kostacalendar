@@ -10,7 +10,7 @@
 				<input type="hidden" name="command" value="getCategoryCount">
 				<input type="hidden" name="userId" value="${sessionScope.dto.id}">
 				<a href="${pageContext.request.contextPath}/dispatcher?command=readCountDetail&categoryNo=1">
-					<span class="countCategory1" id="categoryNo1"></span>
+					<span class="countCategory1" id="categoryNo1"><span class="badge">7</span></span>
 				</a><br><br>
 				<a href="${pageContext.request.contextPath}/dispatcher?command=readCountDetail&categoryNo=2">
 					<span class="countCategory2" id="categoryNo2"></span>
@@ -21,13 +21,23 @@
 			</form>
 			<form id="getCategory" method="post">
 				<input type="hidden" name="command" value="getCategory">
-				<button id="getCategoryBtn"  
+				<!-- <button id="getCategoryBtn"  
 						type="button" 
 						class="btn btn-default" 
 						data-toggle="modal"
 						data-target="#myModal">
 						일정추가
-				</button>						
+				</button> -->		
+				<a data-toggle="tooltip" 
+					data-placement="right"
+					title="일정등록하기!"
+					style="cursor:pointer;">
+					<img src="${pageContext.request.contextPath}/img/register_img.png" 
+						style="width:70;"
+						id="getCategoryBtn"
+						data-toggle="modal"
+						data-target="#myModal">
+				</a>				
 			</form>
 			
 				<button type="button" class="btn btn-default" onclick="openBoard()">
@@ -118,23 +128,8 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#registerBtn").click(function () {
-	         if ($("#newtitle").val().length > 8 || $("#newtitle").val().length == 0) {
-	            alert('제목은 8글자 이내로 작성해주세요'); 
-	            $("#newtitle").val("");      
-	            return false;
-	         }
-	         /* var start = $("#sttdateVal").val();
-	         var end = $("#enddateVal").val();
-	         if (!moment(start).isSame(end) && !moment(start).isBefore(end)) {
-	            alert("끝나는 날짜를 다시 지정하여 주세요"); 
-	            return false;
-	         } */
-	         
 	         var start = new Number($('#sttdate').val().replace(/\-/g, '') + $('#stttime').val().replace(/\:/g, ''));
 				var end = new Number($('#enddate').val().replace(/\-/g, '') + $('#endtime').val().replace(/\:/g, ''));
-				alert($("#sttdate").val()+" "+$("#stttime").val()+ " "+$("#enddate").val()+ " "+ $("#endtime").val());
-				console.log($('#sttdate').val().replace(/\-/g, '') + $('#stttime').val().replace(/\:/g, ''));
-				console.log($('#enddate').val().replace(/\-/g, '') + $('#endtime').val().replace(/\:/g, ''));
 				if (start > end) {
 					alert('끝나는 날짜를 다시 지정하여 주세요'); 
 					$('#sttdate').focus;
@@ -154,6 +149,8 @@ function goHomeBtn(){
 };
 
 	$(document).ready(function() {
+		
+		$('[data-toggle="tooltip"]').tooltip();   
 		var todoJson=${requestScope.todo_list}; 
 		var events= new Array();
 		var todoEvents2 = new Array();
@@ -181,8 +178,10 @@ function goHomeBtn(){
 		}
 		$('#calendar').fullCalendar({
 			  header: {
-				left: 'prev,next today',
-				center: 'title'
+				left: '',
+				right: '',
+				center: 'prev title next today'
+				
 			}, displayEventTime: false
 		});
 		$('#calendar').fullCalendar('addEventSource',events);
