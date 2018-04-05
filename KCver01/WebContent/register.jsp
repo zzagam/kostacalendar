@@ -53,7 +53,7 @@ function checkForm(){
          alert("아이디를 입력하세요!");
       } else {
          window.open("dispatcher?command=idcheck&id=" + str, "popup",
-               "width=200,height=200,top=150,left=400");
+               "width=270,height=200,top=150,left=400");
       }
    }
 </script>
@@ -61,7 +61,7 @@ function checkForm(){
 <body class="login-body">
 
 <div class="image-main">
-<img src="${pageContext.request.contextPath}/img/mainImg2.png" width="10%">
+<a href="index.jsp"><img src="${pageContext.request.contextPath}/img/mainImg2.png" width="10%"></a>
 </div>
 
 <div class="login-form">

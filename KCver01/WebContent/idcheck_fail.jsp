@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/mystyle.css?ver11"/>
 <title>Insert title here</title>
 <script type="text/javascript">
 	var of = opener.document.registerForm;
@@ -15,10 +16,10 @@
 	}
 </script>
 </head>
-<body bgcolor="orange" onunload="closeWindow()">
-	<%=request.getParameter("id")%>는 중복! 사용불가
+<body bgcolor="white" class="calendar-body" onunload="closeWindow()">
+	<%=request.getParameter("id")%> 는 이미 <span style="color: red;">사용중인 아이디</span>입니다.
 	<br>
 	<br>
-	<input type="button" onclick="closeWindow()" value="확인">
+	<input type="button" class="btn btn-default" onclick="closeWindow()" value="확인">
 	</body>
 </html>

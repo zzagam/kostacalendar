@@ -4,21 +4,23 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/mystyle.css?ver11"/>
 <title>아이디중복확인</title>
 <script type="text/javascript">
 	var of=opener.document.registerForm;
-	of.flag.value="<%=request.getParameter("id")%>";	
+	of.flag.value="<%=request.getParameter("id") %>";	
 	function closeWindow(){			
 		of.password.focus();			
 		self.close();
 	}
 </script>
 </head>
-<body bgcolor="yellow" onunload="closeWindow()">
-	<%=request.getParameter("id")%>는 사용가능!
+<body class="calendar-body" bgcolor="white" onunload="closeWindow()">
+	<%=request.getParameter("id") %> 는 <span style="color: green;">사용가능한 아이디</span>입니다!
+	
 	<br>
 	<br>
-	<input type="button" onclick="closeWindow()" value="확인">
+	<input type="button" class="btn btn-default" onclick="closeWindow()" value="확인">
 	
 </body>
 </html>

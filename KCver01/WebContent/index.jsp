@@ -28,7 +28,7 @@
 <div class="login-form">
     <form action="${pageContext.request.contextPath}/dispatcher" method="post">
     <input type="hidden" name="command" value="login">
-        <h2 class="text-center">Login</h2>   
+        <h2 class="text-center">Log in</h2>   
         <div class="form-group has-error">
         	<input type="text" class="form-control" name="userId" placeholder="아이디" required="required">
         </div>

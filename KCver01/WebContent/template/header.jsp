@@ -20,7 +20,7 @@
 	<script type="text/javascript">
 	
 		function checkLogout(){
-			var flag = confirm("로그아웃 하시겠습니까??????");
+			var flag = confirm("로그아웃 하시겠습니까?");
 			if (flag){
 				location.href="${pageContext.request.contextPath}/dispatcher?command=logout";
 			
@@ -43,7 +43,7 @@
 				</button>
 				<h3 style="color: white;cursor: pointer;text-align: center;" onclick="goHomeBtn()">
 				<img src="${pageContext.request.contextPath}/img/logo.jpeg"
-				style="width:30;">&nbsp;&nbsp;&nbsp;&nbsp; Kosta Calendar!</h3>
+				style="width:30;">&nbsp;&nbsp; Kosta Calendar!</h3>
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="navbarCollapse">
