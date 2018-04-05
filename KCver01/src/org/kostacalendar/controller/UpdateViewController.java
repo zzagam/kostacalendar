@@ -25,15 +25,23 @@ public class UpdateViewController implements Controller {
 		KCUserDTO id = (KCUserDTO)session.getAttribute("dto");
 		TodoListDTO tdListDTO = TodoListDAO.getInstance().getPostingByNo(todoNo);
 		ArrayList<TodoListDTO> list = TodoListDAO.getInstance().getTodoListById(id.getId());
-		
-		for (int i=0 ; i<list.size() ; i++) {
-			System.out.println(list.get(i).getTitle());
-		}
+		tdListDTO.getStartDate();
+		System.out.println(tdListDTO.getStartDate());
+		String startTime = tdListDTO.getStartDate().substring(11, 16);
+		String endTime = tdListDTO.getEndDate().substring(11, 16);
+		String startDate = tdListDTO.getStartDate().substring(0, 10);
+		String endDate = tdListDTO.getEndDate().substring(0, 10);
+		System.out.println(startDate);
+		System.out.println(endDate);
 		JSONArray json = new JSONArray(list);
 		System.out.println("$$$$$$4"+json.toString());
 		request.setAttribute("todo_list", json);
 		request.setAttribute("tdListDTO", tdListDTO);
 		request.setAttribute("todoNo", todoNo);
+		request.setAttribute("startDate", startDate);
+		request.setAttribute("startTime", startTime);
+		request.setAttribute("endDate", endDate);
+		request.setAttribute("endTime", endTime);
 		request.setAttribute("url", "../alltodolist/update.jsp");
 		System.out.println(tdListDTO.getCategory().getCategoryNo());
 		return "template/calendar.jsp";
