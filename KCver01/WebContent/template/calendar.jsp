@@ -9,15 +9,18 @@
 			<form id="categoryForm">
 				<input type="hidden" name="command" value="getCategoryCount">
 				<input type="hidden" name="userId" value="${sessionScope.dto.id}">
-				<a href="${pageContext.request.contextPath}/dispatcher?command=readCountDetail&categoryNo=1">
-					<span class="countCategory1" id="categoryNo1"><span class="badge">7</span></span>
-				</a><br><br>
-				<a href="${pageContext.request.contextPath}/dispatcher?command=readCountDetail&categoryNo=2">
-					<span class="countCategory2" id="categoryNo2"></span>
-				</a><br><br>
-				<a href="${pageContext.request.contextPath}/dispatcher?command=readCountDetail&categoryNo=3">
-					<span class="countCategory3" id="categoryNo3"></span>
-				</a><br><br>
+				<a style="cursor: pointer;">
+					<span class="countCategory1" id="categoryNo1" onclick="readCount(1)"></span>
+				</a>
+				<br><br>
+				<a style="cursor: pointer;">
+					<span class="countCategory2" id="categoryNo2" onclick="readCount(2)"></span>
+				</a>
+				<br><br>
+				<a style="cursor: pointer;">
+					<span class="countCategory3" id="categoryNo3" onclick="readCount(3)"></span>
+				</a>
+				<br><br>
 			</form>
 			<form id="getCategory" method="post">
 				<input type="hidden" name="command" value="getCategory">
@@ -143,6 +146,10 @@
 </script>
 <script type="text/javascript">
 
+function readCount(categoryNo){
+	location.href="${pageContext.request.contextPath}/dispatcher?command=readCountDetail&categoryNo="+categoryNo;
+}
+
 function openBoard(){
 	var popUrl = "${pageContext.request.contextPath}/dispatcher?command=getBoard";
 	window.open(popUrl, 'pop','toolbar=yes,menubar=yes,status=yes,scrollbars=no,resizable=no,width=500,height=500,top=50,left=50;');
@@ -198,11 +205,11 @@ function goHomeBtn(){
 			success:function(data){
 				for (var i=0 ; i<data.length ; i++){
 					if (data[i].category.categoryNo=="1"){
-						$("#categoryNo1").html(data[0].category.categoryName+" "+data[0].count);		
+						$("#categoryNo1").html(data[i].category.categoryName+" "+data[i].count);		
 					}else if (data[i].category.categoryNo=="2"){
-						$("#categoryNo2").html(data[1].category.categoryName+" "+data[1].count);		
+						$("#categoryNo2").html(data[i].category.categoryName+" "+data[i].count);		
 					}else if (data[i].category.categoryNo=="3"){
-						$("#categoryNo3").html(data[2].category.categoryName+" "+data[2].count);		
+						$("#categoryNo3").html(data[i].category.categoryName+" "+data[i].count);		
 					}
 				}			
 			}

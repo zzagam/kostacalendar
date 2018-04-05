@@ -23,7 +23,7 @@ create table kc_user(
  );
  
  create table todo_list(
- 	todo_no number,
+ 	todo_no number primary key,
  	id varchar2(100),
  	category_no number,
  	title varchar2(100) not null,
@@ -31,9 +31,8 @@ create table kc_user(
  	start_date date not null,
  	end_date date not null,
  	constraint fk_kc_id foreign key(id) references kc_user,
- 	constraint fk_category_no foreign key(category_no) references category,
- 	constraint pk_todo_list primary key(id, category_no, todo_no)
- )
+ 	constraint fk_category_no foreign key(category_no) references category
+ );
  
  select t.todo_no, t.id, t.category_no, c.category_name, t.title, t.content,
  		to_char(t.start_date,'yyyy/mm/dd.hh24:mi'), to_char(t.end_date,'yyyy/mm/dd.hh24:mi')

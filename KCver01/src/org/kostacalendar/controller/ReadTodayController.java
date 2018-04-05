@@ -15,7 +15,11 @@ public class ReadTodayController implements Controller {
 		String id = request.getParameter("userId");
 		ArrayList<TodoListDTO> list = TodoListDAO.getInstance().getTodayTodoList(id);
 		request.setAttribute("todayList", list);
-
+		if (list.isEmpty()) {
+			return "alltodolist/todayTodo_no.jsp";
+		}
+		
+		
 		return "alltodolist/todayTodo.jsp";
 
 	}

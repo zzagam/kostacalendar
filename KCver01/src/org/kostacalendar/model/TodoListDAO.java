@@ -111,7 +111,7 @@ public class TodoListDAO {
 					"select t.todo_no, c.category_no, c.category_name, t.title, to_char(t.start_date,'YYYY.MM.DD.HH24:MI'), to_char(t.end_date,'YYYY.MM.DD.HH24:MI'), t.content");
 			sql.append(" from todo_list t, category c");
 			sql.append(
-					" where t.id=? and t.category_no=c.category_no and start_date <= sysdate and end_date >= sysdate");
+					" where t.id=? and t.category_no=c.category_no and start_date < sysdate and end_date > sysdate");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
