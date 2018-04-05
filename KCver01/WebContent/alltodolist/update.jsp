@@ -3,6 +3,7 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/mystyle.css?ver11"/>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script>
   var jb = jQuery.noConflict();
@@ -68,8 +69,8 @@
         <textarea class="form-control" rows="15" name="contents" required="required">${requestScope.tdListDTO.content}</textarea>
         </div>  
         <div class="form-group">
-            <input type="submit" class="btn btn-primary btn-size" value="수정" >&emsp;
-            <input type="button" class="btn btn-primary btn-size" value="취소" onclick="cancel()">
+            <input type="submit" class="btn btn-default" value="수정" >&emsp;
+            <input type="button" class="btn btn-default" value="취소" onclick="cancel()">
         </div>
         
         

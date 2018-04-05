@@ -17,32 +17,33 @@ function deleteCategory(){
 </script>
 
 
-<h3>Detail View</h3><hr>
+<h2>일정 상세보기</h2><hr>
 
-<div class="panel panel-success">
-    <div class="panel-heading">분류</div>
-    <div class="panel-body">${requestScope.tdto.category.categoryName}</div>
-  </div>
-  <div class="panel panel-success">
-    <div class="panel-heading">제목</div>
-    <div class="panel-body">${requestScope.tdto.title}</div>
-  </div>
-  <div class="panel panel-success">
-    <div class="panel-heading">시작일</div>
-    <div class="panel-body">${requestScope.tdto.startDate}</div>
-  </div>
-  <div class="panel panel-success">
-    <div class="panel-heading">종료일</div>
-    <div class="panel-body">${requestScope.tdto.endDate}</div>
-  </div>
-  <div class="panel panel-success">
-    <div class="panel-heading">내용</div>
-    <div class="panel-body"><pre>${requestScope.tdto.content}</pre></div>
-  </div>
-
+<div class="update-form">
+    제목
+     <div class="form-control">
+     	${requestScope.tdto.title}
+      </div><br>
+    분류
+     <div class="form-control">
+     	${requestScope.tdto.category.categoryName}
+      </div><br>
+ 	시작일시
+     <div class="form-control">
+     	${requestScope.tdto.startDate}
+      </div><br>
+	종료일시
+     <div class="form-control">
+     	${requestScope.tdto.endDate}
+	</div><br>
+	내용
+	<div class="form-control">
+     	${requestScope.tdto.content}
+	</div><br>
+</div>
 
 <form>
-<input type="button" value="수정" onclick="update()">
-<input type="button" value="삭제" onclick="deleteCategory()">
+<input type="button" value="수정" class="btn btn-default" onclick="update()">
+<input type="button" value="삭제" class="btn btn-default" onclick="deleteCategory()">
 </form>
 

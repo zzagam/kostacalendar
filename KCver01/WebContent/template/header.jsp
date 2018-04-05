@@ -41,7 +41,9 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<h3 style="color: white;cursor: pointer;" onclick="goHomeBtn()">MyScheduler</h3>
+				<h3 style="color: white;cursor: pointer;text-align: center;" onclick="goHomeBtn()">
+				<img src="${pageContext.request.contextPath}/img/logo.jpeg"
+				style="width:30;">&nbsp;&nbsp;&nbsp;&nbsp; Kosta Calendar!</h3>
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="navbarCollapse">

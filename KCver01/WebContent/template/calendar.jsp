@@ -30,7 +30,7 @@
 				</button> -->		
 				<a data-toggle="tooltip" 
 					data-placement="right"
-					title="일정등록하기!"
+					title="일정등록"
 					style="cursor:pointer;">
 					<img src="${pageContext.request.contextPath}/img/register_img.png" 
 						style="width:70;"
@@ -39,14 +39,18 @@
 						data-target="#myModal">
 				</a>				
 			</form>
-			
-				<button type="button" class="btn btn-default" onclick="openBoard()">
-						전체일정게시판
-				</button>
+				<a data-toggle="tooltip" 
+					data-placement="right"
+					title="전체일정목록"
+					style="cursor:pointer;"><img src="${pageContext.request.contextPath}/img/board.png"
+						onclick="openBoard()"
+						style="width:65;">
+				</a>
+				
 			
 	   	</div>
    		<div class="col-sm-7">
-   			<div id="calendar" style="padding-top: 100px"></div>
+   			<div id="calendar" style="padding-top: 100px;width:auto;"></div>
    		</div>
     	<div class="col-sm-3 rightSide" style="padding-top: 100px">
     		<c:import url="${url}"/>
@@ -109,7 +113,7 @@
 								</div>
 							</div>
 							<div class="modal-footer">
-								<input type="submit" class="btn btn-default"	id="registerBtn" value="등록">
+								<button type="submit" class="btn btn-default"	id="registerBtn">등록</button>
 								<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 							</div>
 						</div>

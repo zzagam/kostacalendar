@@ -19,7 +19,7 @@
 <c:when test="${sessionScope.dto.id==null}">
 
 <div class="image-main">
-<img src="${pageContext.request.contextPath}/img/mainImg.png" width="10%">
+<img src="${pageContext.request.contextPath}/img/mainImg2.png" width="10%">
 </div>
 
 <div class="logo-style">
