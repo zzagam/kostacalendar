@@ -162,8 +162,8 @@ public class TodoListDAO {
 			con = getConnection();
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE TODO_LIST SET CATEGORY_NO = ?, TITLE = ?, CONTENT = ?,");
-			sql.append("START_DATE = TO_DATE(?, 'YYYY-MM-DD'),");
-			sql.append("END_DATE = TO_DATE(?, 'YYYY-MM-DD') ");
+			sql.append("START_DATE = TO_DATE(?, 'YYYYMMDDHH24mi'),");
+			sql.append("END_DATE = TO_DATE(?, 'YYYYMMDDHH24mi') ");
 			sql.append("WHERE id=? AND todo_no=?");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setInt(1, tdListDTO.getCategory().getCategoryNo());
@@ -189,8 +189,8 @@ public class TodoListDAO {
 		try {
 			con = getConnection();
 			StringBuilder sql = new StringBuilder();
-			sql.append("select t.todo_no, t.title, to_char(t.start_date,'YYYY-MM-DD') as start_date,");
-			sql.append("to_char(t.end_date,'YYYY-MM-DD') as end_date, t.content,t.category_no, t.id, u.name ");
+			sql.append("select t.todo_no, t.title, to_char(t.start_date,'YYYY-MM-DD-hh24:mi') as start_date,");
+			sql.append("to_char(t.end_date,'YYYY-MM-DD-hh24:mi') as end_date, t.content,t.category_no, t.id, u.name ");
 			sql.append("from todo_list t, kc_user u ");
 			sql.append("where t.id=u.id and t.todo_no=?");
 			pstmt = con.prepareStatement(sql.toString());

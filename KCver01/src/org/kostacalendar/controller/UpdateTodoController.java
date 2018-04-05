@@ -23,16 +23,24 @@ public class UpdateTodoController implements Controller {
 		KCUserDTO kcUserdto = (KCUserDTO) session.getAttribute("dto");
 		int todoNo=Integer.parseInt(request.getParameter("todoNo"));
 		String category_no = request.getParameter("category_no");
-		String start_date = request.getParameter("start_date");
-		String end_date = request.getParameter("end_date");
 		String title = request.getParameter("title");
 		String content = request.getParameter("contents");
+		String start_date=request.getParameter("start_date").replace("-", "");
+		System.out.println(start_date);
+		String starttime = request.getParameter("starttime").replace(":", "");
+		System.err.println(starttime);	
+		String start = start_date + starttime;
+		String end_date=request.getParameter("end_date").replace("-", "");
+		String endtime=request.getParameter("endtime").replace(":", "");
+		String end = end_date + endtime;
+		System.out.println(start);
+		System.out.println(end);
 		
 		TodoListDTO tdListDTO=new TodoListDTO();
 		tdListDTO.setTodoNo(todoNo);
 		tdListDTO.setCategory(new CategoryDTO(Integer.parseInt(category_no),null));
-		tdListDTO.setStartDate(start_date);
-		tdListDTO.setEndDate(end_date);
+		tdListDTO.setStartDate(start);
+		tdListDTO.setEndDate(end);
 		tdListDTO.setTitle(title);
 		tdListDTO.setContent(content);
 		tdListDTO.setUser(new KCUserDTO(kcUserdto.getId(), null, null, 0));
@@ -48,7 +56,7 @@ public class UpdateTodoController implements Controller {
 		request.setAttribute("tdto", todo);
 		request.setAttribute("todoNo", todoNo);
 		request.setAttribute("url", "right.jsp");
-		return "redirect:index.jsp";
+		return "index.jsp";
 		
 		
 	}
