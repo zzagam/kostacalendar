@@ -63,7 +63,7 @@ function checkForm(){
       if (str == "") {
          alert("아이디를 입력하세요!");
       } else {
-         window.open("dispatcher?command=idcheck&id=" + str, "popup",
+         window.open("${pageContext.request.contextPath}/dispatcher?command=idcheck&id=" + str, "popup",
                "width=270,height=200,top=150,left=400");
       }
    }
@@ -72,11 +72,11 @@ function checkForm(){
 <body class="login-body">
 
 <div class="image-main">
-<a href="index.jsp"><img src="${pageContext.request.contextPath}/img/mainImg2.png" width="10%"></a>
+<a href="${pageContext.request.contextPath}/index.jsp"><img src="${pageContext.request.contextPath}/img/mainImg2.png" width="10%"></a>
 </div>
 
 <div class="login-form">
-<form method="post" name="registerForm" id="idForm" action="dispatcher" onsubmit="return checkForm()">
+<form method="post" name="registerForm" id="idForm" action="${pageContext.request.contextPath}/dispatcher" onsubmit="return checkForm()">
    <input type="hidden" name="command" value="createUser">
    <h2 class="text-center">회원가입</h2>   
         <div class="form-group has-error">

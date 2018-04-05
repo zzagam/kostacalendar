@@ -30,7 +30,7 @@ public class LoginController implements Controller {
 			
 			
 		}else {
-			url="login_fail.jsp";
+			url="alltodolist/login_fail.jsp";
 		}
 		return "redirect:"+url;
 		

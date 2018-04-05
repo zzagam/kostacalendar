@@ -39,7 +39,7 @@
             <button type="submit" class="btn btn-primary btn-lg btn-block">Log in</button>
         </div>
     </form>
-    <p class="text-center small">회원이 아니세요? 지금 당장 가입하세요! <a href="register.jsp">회원가입하기!</a></p>
+    <p class="text-center small">회원이 아니세요? 지금 당장 가입하세요! <a href="${pageContext.request.contextPath}/alltodolist/register.jsp">회원가입하기!</a></p>
 </div>
 </c:when>
 <c:otherwise>
