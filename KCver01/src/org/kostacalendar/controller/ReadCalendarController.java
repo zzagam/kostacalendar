@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
+import org.kostacalendar.model.KCUserDTO;
 import org.kostacalendar.model.TodoListDAO;
 import org.kostacalendar.model.TodoListDTO;
 
@@ -17,8 +19,13 @@ public class ReadCalendarController implements Controller {
 	 */
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String id = request.getParameter("userId");
 		
+		HttpSession session = request.getSession(false);
+		if (session==null || session.getAttribute("dto")==null) {
+			return "/index.jsp";
+		}
+		KCUserDTO dto = (KCUserDTO)session.getAttribute("dto");
+		String id = dto.getId();
 		ArrayList<TodoListDTO> list = TodoListDAO.getInstance().getTodoListById(id);
 		
 		JSONArray json = new JSONArray(list);
