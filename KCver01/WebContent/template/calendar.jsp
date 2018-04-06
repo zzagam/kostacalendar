@@ -10,15 +10,15 @@
 				<input type="hidden" name="command" value="getCategoryCount">
 				<input type="hidden" name="userId" value="${sessionScope.dto.id}">
 				<a style="cursor: pointer;">
-					<span class="countCategory1" id="categoryNo1" onclick="readCount(1)"></span>
+					<span class="countCategory1" id="categoryNo1" onclick="readCount(1)">공부 0</span>
 				</a>
 				<br><br>
 				<a style="cursor: pointer;">
-					<span class="countCategory2" id="categoryNo2" onclick="readCount(2)"></span>
+					<span class="countCategory2" id="categoryNo2" onclick="readCount(2)">업무 0</span>
 				</a>
 				<br><br>
 				<a style="cursor: pointer;">
-					<span class="countCategory3" id="categoryNo3" onclick="readCount(3)"></span>
+					<span class="countCategory3" id="categoryNo3" onclick="readCount(3)">약속 0</span>
 				</a>
 				<br><br>
 			</form>
