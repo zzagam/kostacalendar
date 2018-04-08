@@ -54,9 +54,12 @@ public class TodoListDAO {
 		ArrayList<TodoListDTO> list = new ArrayList<TodoListDTO>();
 		try {
 			con = getConnection();
-			sql.append("select t.todo_no,t.category_no,t.title,to_char(t.start_date,'MM/DD/YYYY'),to_char(t.end_date,'MM/DD/YYYY')"); //"select t.todo_no,t.title,t.start_date,t.end_date\n" + 
-			sql.append(" from todo_list t, kc_user k");		//" from todo_list t, kc_user k\n" + 
-			sql.append(" where t.id=k.id and t.id=?");//" where t.id=k.id and t.id=?"
+			sql.append(
+					"select t.todo_no,t.category_no,t.title,to_char(t.start_date,'MM/DD/YYYY'),to_char(t.end_date,'MM/DD/YYYY')"); // "select
+																																	// t.todo_no,t.title,t.start_date,t.end_date\n"
+																																	// +
+			sql.append(" from todo_list t, kc_user k"); // " from todo_list t, kc_user k\n" +
+			sql.append(" where t.id=k.id and t.id=?");// " where t.id=k.id and t.id=?"
 			sql.append(" order by t.start_date");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setString(1, id);
@@ -110,8 +113,7 @@ public class TodoListDAO {
 			sql.append(
 					"select t.todo_no, c.category_no, c.category_name, t.title, to_char(t.start_date,'YYYY.MM.DD.HH24:MI'), to_char(t.end_date,'YYYY.MM.DD.HH24:MI'), t.content");
 			sql.append(" from todo_list t, category c");
-			sql.append(
-					" where t.id=? and t.category_no=c.category_no and start_date < sysdate and end_date > sysdate");
+			sql.append(" where t.id=? and t.category_no=c.category_no and start_date < sysdate and end_date > sysdate");
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
@@ -237,7 +239,7 @@ public class TodoListDAO {
 		return list;
 	}
 
-	//일정등록하기
+	// 일정등록하기
 	public void createSchedule(TodoListDTO dto) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -262,14 +264,14 @@ public class TodoListDAO {
 		}
 	}
 
-	//일정삭제
+	// 일정삭제
 	public void deleteSchedule(String id, int no) throws SQLException {
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		try{
-			con=dataSource.getConnection();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = dataSource.getConnection();
 			String sql = "delete from todo_list where todo_no = ? and id = ?";
-			pstmt=con.prepareStatement(sql.toString());
+			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setInt(1, no);
 			pstmt.setString(2, id);
 			pstmt.executeUpdate();
@@ -283,53 +285,58 @@ public class TodoListDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<TodoListDTO> list = new ArrayList<TodoListDTO>();
-		con = dataSource.getConnection();
-		StringBuilder sql = new StringBuilder();
-		sql.append(
-				" select t.todo_no,t.category_no,t.title,to_char(t.start_date,'MM/DD/YYYY'),to_char(t.end_date,'MM/DD/YYYY')");
-		sql.append(" from category c , todo_list t  ");
-		sql.append(" where t.category_no=c.category_no and c.category_no=? and t.id=?");
-		pstmt = con.prepareStatement(sql.toString());
-		pstmt.setInt(1, categoryNo);
-		pstmt.setString(2, id);
-		rs = pstmt.executeQuery();
-		while (rs.next()) {
-			list.add(new TodoListDTO(rs.getInt(1), null, new CategoryDTO(rs.getInt(2), null), rs.getString(3), null,
-					rs.getString(4), rs.getString(5)));
+		try {
+
+			con = dataSource.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append(
+					" select t.todo_no,t.category_no,t.title,to_char(t.start_date,'MM/DD/YYYY'),to_char(t.end_date,'MM/DD/YYYY')");
+			sql.append(" from category c , todo_list t  ");
+			sql.append(" where t.category_no=c.category_no and c.category_no=? and t.id=?");
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setInt(1, categoryNo);
+			pstmt.setString(2, id);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				list.add(new TodoListDTO(rs.getInt(1), null, new CategoryDTO(rs.getInt(2), null), rs.getString(3), null,
+						rs.getString(4), rs.getString(5)));
+			}
+		} finally {
+			closeAll(rs, pstmt, con);
 		}
 		return list;
 	}
 
 	public int getTotalTodoListById(String id) throws SQLException {
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		StringBuilder sql = new StringBuilder();
 		try {
-			con=getConnection();
+			con = getConnection();
 			sql.append("select count(*) from todo_list");
 			sql.append(" where id=?");
-			pstmt=con.prepareStatement(sql.toString());
+			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setString(1, id);
-			rs=pstmt.executeQuery();
-			if(rs.next()) {
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
 				return rs.getInt(1);
 			}
-		}finally {
+		} finally {
 			closeAll(rs, pstmt, con);
 		}
 		return 0;
 	}
 
 	public ArrayList<TodoListDTO> getBoardTodoListById(String id, int startRow, int endRow) throws SQLException {
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		StringBuilder sql = new StringBuilder();
 		ArrayList<TodoListDTO> list = new ArrayList<TodoListDTO>();
 		try {
-	
-			con=getConnection();
+
+			con = getConnection();
 			sql.append("select t.todo_no, t.category_no, c.category_name, t.title,");
 			sql.append(" to_char(t.start_date,'yyyy/mm/dd.hh24:mi'),");
 			sql.append(" to_char(t.end_date,'yyyy/mm/dd.hh24:mi') ");
@@ -340,19 +347,16 @@ public class TodoListDAO {
 			sql.append(" from todo_list where id=?)t, category c");
 			sql.append(" where t.category_no=c.category_no and rnum between ? and ?");
 			sql.append(" order by todo_no desc");
-			pstmt=con.prepareStatement(sql.toString());
+			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setString(1, id);
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, endRow);
-			rs=pstmt.executeQuery();
-			while(rs.next()) {
-				list.add(new TodoListDTO(rs.getInt(1), null, 
-						new CategoryDTO(rs.getInt(2), 
-								rs.getString(3)), 
-						rs.getString(4), null, 
-						rs.getString(5), rs.getString(6)));
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				list.add(new TodoListDTO(rs.getInt(1), null, new CategoryDTO(rs.getInt(2), rs.getString(3)),
+						rs.getString(4), null, rs.getString(5), rs.getString(6)));
 			}
-		}finally {
+		} finally {
 			closeAll(rs, pstmt, con);
 		}
 		return list;
